@@ -20,7 +20,7 @@ from utils import get_last_checkpoint_file_name, load_checkpoint, save_checkpoin
 from datasets.data_loader import Text2MelDataLoader
 
 parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-parser.add_argument("--dataset", required=True, choices=['ljspeech', 'mbspeech'], help='dataset name')
+parser.add_argument("--dataset", required=True, choices=['ljspeech', 'mbspeech', 'm_ailabs'], help='dataset name')
 args = parser.parse_args()
 
 if args.dataset == 'ljspeech':
