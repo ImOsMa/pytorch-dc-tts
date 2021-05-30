@@ -69,7 +69,10 @@ class RussianSpeech(Dataset):
             data['texts'] = self.texts[index]
         if 'mels' in self.keys:
             # (39, 80)
-            data['mels'] = np.load(os.path.join(self.path, 'mels', "%s.npy" % self.fnames[index]))
+            wav_file = read(os.path.join(self.path, self.fnames[index]))
+            file_npy = np.array(wav_file[1], dtype=float)
+            save(os.path.join(self.path, "%s.npy" % self.fnames[index]), file_npy)
+            data['mels'] = np.load(os.path.join(self.path, "%s.npy" % self.fnames[index]))
         if 'mags' in self.keys:
             # (39, 80)
             data['mags'] = np.load(os.path.join(self.path, 'mags', "%s.npy" % self.fnames[index]))
