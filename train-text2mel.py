@@ -25,8 +25,10 @@ args = parser.parse_args()
 
 if args.dataset == 'ljspeech':
     from datasets.lj_speech import vocab, LJSpeech as SpeechDataset
-else:
+elif args.dataset == 'mbspeech':
     from datasets.mb_speech import vocab, MBSpeech as SpeechDataset
+else:
+    from datasets.ailabs_speech import vocab, RussianSpeech as SpeechDataset
 
 use_gpu = torch.cuda.is_available()
 print('use_gpu', use_gpu)
