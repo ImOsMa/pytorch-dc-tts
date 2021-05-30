@@ -2,6 +2,7 @@ import os
 import re
 import codecs
 import unicodedata
+from scipy.io.wavfile import read
 import numpy as np
 import decimal
 
@@ -28,7 +29,7 @@ def read_metadata(metadata_file):
     transcript = os.path.join(metadata_file)
     lines = codecs.open(transcript, 'r', 'utf-8').readlines()
     for line in lines:
-        fname, _, text = line.strip().split("|")
+        fname, text = line.strip().split("|")
 
         fnames.append(fname)
 
@@ -53,7 +54,7 @@ class RussianSpeech(Dataset):
     def __init__(self, keys, dir_name='/content/drive/MyDrive/M_AILABS_Ru'):
         self.keys = keys
         self.path = os.path.join(os.path.dirname(os.path.realpath(__file__)), dir_name)
-        self.fnames, self.text_lengths, self.texts = read_metadata(os.path.join(self.path, 'metadata.txt'))
+        self.fnames, self.text_lengths, self.texts = read_metadata(os.path.join(self.path, 'mlbs_audio_text_transformed.txt'))
 
     def slice(self, start, end):
         self.fnames = self.fnames[start:end]
@@ -71,7 +72,7 @@ class RussianSpeech(Dataset):
             # (39, 80)
             wav_file = read(os.path.join(self.path, self.fnames[index]))
             file_npy = np.array(wav_file[1], dtype=float)
-            save(os.path.join(self.path, "%s.npy" % self.fnames[index]), file_npy)
+            np.save(os.path.join(self.path, "%s.npy" % self.fnames[index]), file_npy)
             data['mels'] = np.load(os.path.join(self.path, "%s.npy" % self.fnames[index]))
         if 'mags' in self.keys:
             # (39, 80)
