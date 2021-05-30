@@ -115,7 +115,7 @@ class RussianSpeech(Dataset):
         )
         return frames.astype(np.float32).T
 
-    def trim_long_silences(wav):
+    def trim_long_silences(self, wav):
         """
         Ensures that segments without voice in the waveform remain no longer than a
         threshold determined by the VAD parameters in params.py.
