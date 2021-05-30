@@ -105,7 +105,7 @@ class RussianSpeech(Dataset):
         sampling_rate = 16000
         mel_window_length = 25  # In milliseconds
         mel_window_step = 10  # In milliseconds
-        mel_n_channels = 40
+        mel_n_channels = 80
         frames = librosa.feature.melspectrogram(
             wav,
             sampling_rate,
